@@ -1,6 +1,9 @@
 defmodule Stats.CentralTendency.Mean do
   alias Stats.{Errors, Validators}
 
+  # ================================================================
+
+  @spec population_mean([number()]) :: number() | {atom(), String.t()}
   def population_mean([]), do: Errors.invalid_data_type()
 
   def population_mean(nums) when is_list(nums) do
@@ -13,9 +16,15 @@ defmodule Stats.CentralTendency.Mean do
 
   # ================================================================
 
-  def calc_population_mean({false, _nums}), do: Errors.invalid_data_type()
+  @spec sample_mean([number()]) :: number() | {atom(), String.t()}
+  def sample_mean(nums), do: population_mean(nums)
 
-  def calc_population_mean({true, nums}) do
+  # ================================================================
+
+  @spec calc_population_mean({boolean(), [number()]}) :: number() | {atom(), String.t()}
+  defp calc_population_mean({false, _nums}), do: Errors.invalid_data_type()
+
+  defp calc_population_mean({true, nums}) do
     nums
     |> Enum.sum()
     |> mean(Enum.count(nums))
@@ -23,5 +32,6 @@ defmodule Stats.CentralTendency.Mean do
 
   # ================================================================
 
-  def mean(sigma, count), do: sigma / count
+  @spec mean(number(), integer()) :: number()
+  defp mean(sigma, count), do: sigma / count
 end
