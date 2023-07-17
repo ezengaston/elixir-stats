@@ -11,4 +11,6 @@ defmodule Stats do
   defdelegate mode(nums), to: Mode
 
   defdelegate range(nums), to: Range
+
+  defdelegate interquartile_range(nums), to: Range
 end
